@@ -1,5 +1,6 @@
 package com.tecsup.hospital.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -21,18 +22,16 @@ public class Cita {
     private LocalTime hora;
     private String motivo;
 
-    // Estado de la cita (PROGRAMADA, ATENDIDA, CANCELADA)
     @Enumerated(EnumType.STRING)
     private EstadoCita estado = EstadoCita.PROGRAMADA;
 
-    // Relación con Paciente
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "paciente_id")
+    @JsonIgnoreProperties({"citas"}) // 👈 evita recursión infinita con paciente
     private Paciente paciente;
 
-    // Relación con Médico
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "medico_id")
+    @JsonIgnoreProperties({"citas", "especialidad"}) // 👈 evita bucles con médico y especialidad
     private Medico medico;
-
 }

@@ -1,5 +1,6 @@
 package com.tecsup.hospital.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,4 +22,9 @@ public class Medico {
     private String cmp;
     private String telefono;
     private String correo;
+
+    @ManyToOne
+    @JoinColumn(name = "especialidad_id")
+    @JsonIgnoreProperties("medicos")   // 👈 rompe la recursión infinita
+    private Especialidad especialidad;
 }

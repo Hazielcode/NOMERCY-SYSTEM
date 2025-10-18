@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Especialidades — NoMercy System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Nunito', sans-serif; background: linear-gradient(135deg, #e0f2ff, #f7fbff); }
+        .card { border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .btn-primary { background-color: #0077b6; border: none; }
+        .btn-primary:hover { background-color: #0096c7; transform: scale(1.05); }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-dark" style="background-color:#0077b6;">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">🏥 NoMercy System</a>
+        <a href="/" class="btn btn-outline-light btn-sm">⬅ Volver</a>
+    </div>
+</nav>
+
+<div class="container py-4">
+    <div class="text-center mb-4">
+        <h2><i class="bi bi-flask"></i> Gestión de Especialidades</h2>
+        <p class="text-secondary">Administra las especialidades médicas.</p>
+    </div>
+
+    <div class="card mb-4 p-3">
+        <div class="row g-2">
+            <div class="col-md-5"><input id="e-nombre" class="form-control" placeholder="Nombre"></div>
+            <div class="col-md-5"><input id="e-descripcion" class="form-control" placeholder="Descripción"></div>
+            <div class="col-md-2"><button id="e-crear" class="btn btn-primary w-100"><i class="bi bi-check-circle"></i> Guardar</button></div>
+        </div>
+    </div>
+
+    <div class="card p-3">
+        <h5 class="mb-3"><i class="bi bi-list-ul text-info"></i> Lista de Especialidades</h5>
+        <table class="table table-striped table-hover">
+            <thead class="table-dark text-center">
+            <tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="tabla-especialidades" class="text-center"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const API = "http://localhost:8080/api/especialidades";
+    const tabla = document.getElementById("tabla-especialidades");
+
+    async function listarEspecialidades() {
+        try {
+            const res = await fetch(API);
+            if (!res.ok) throw new Error("Error al conectar con la API");
+            const data = await res.json();
+
+            console.log("✅ Datos recibidos:", data); // 🔍 Log para depurar
+
+            tabla.innerHTML = "";
+            if (data.length === 0) {
+                tabla.innerHTML = `<tr><td colspan="4">No hay especialidades registradas.</td></tr>`;
+                return;
+            }
+
+            data.forEach(e => {
+                tabla.innerHTML += `
+          <tr>
+            <td>${e.id}</td>
+            <td>${e.nombre}</td>
+            <td>${e.descripcion || "—"}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" onclick="eliminarEspecialidad(${e.id})">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>`;
+            });
+
+        } catch (err) {
+            console.error("❌ Error al listar especialidades:", err);
+            tabla.innerHTML = `<tr><td colspan="4" class="text-danger">Error al cargar datos</td></tr>`;
+        }
+    }
+
+    document.getElementById("e-crear").addEventListener("click", async () => {
+        const data = {
+            nombre: document.getElementById("e-nombre").value,
+            descripcion: document.getElementById("e-descripcion").value
+        };
+        const res = await fetch(API, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+        if (res.ok) {
+            alert("✅ Especialidad creada correctamente");
+            listarEspecialidades();
+        } else alert("❌ Error al registrar especialidad");
+    });
+
+    async function eliminarEspecialidad(id) {
+        if (!confirm("¿Eliminar esta especialidad?")) return;
+        const res = await fetch(`${API}/${id}`, { method: "DELETE" });
+        if (res.ok) {
+            alert("🗑️ Eliminado correctamente");
+            listarEspecialidades();
+        }
+    }
+
+    listarEspecialidades();
+</script>
+</body>
+</html>

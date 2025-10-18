@@ -25,12 +25,24 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // --- Core Spring Boot ---
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // --- Thymeleaf para vistas HTML ---
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // --- Base de datos MySQL ---
     runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // --- Desarrollo ---
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // --- Lombok (para getters/setters automáticos) ---
+    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // --- Testing ---
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
