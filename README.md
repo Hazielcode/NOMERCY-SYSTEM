@@ -1,204 +1,183 @@
-<div align="center">
+<h1 align="center">🏥 HospitalSystem – Spring Boot + MongoDB</h1>
 
-# 🏥 **NoMercy System**
-### _Hospital Management Application_
+<p align="center">
+  <img src="https://i.imgur.com/8M9r1nV.png" width="120" alt="Hospital Icon"/>
+</p>
 
-💡 Sistema integral para la gestión hospitalaria desarrollado con  
-**Spring Boot 3.5**, **Thymeleaf**, **MySQL**, **Bootstrap 5** y **JavaScript**.  
-Permite administrar **pacientes, médicos, especialidades y citas médicas** desde una interfaz moderna y dinámica.
-
----
-
-![Banner](https://img.shields.io/badge/Spring%20Boot-3.5-brightgreen?style=for-the-badge&logo=springboot)
-![MySQL](https://img.shields.io/badge/MySQL-8-blue?style=for-the-badge&logo=mysql)
-![Java](https://img.shields.io/badge/Java-17-orange?style=for-the-badge&logo=openjdk)
-![Thymeleaf](https://img.shields.io/badge/Thymeleaf-Template%20Engine-success?style=for-the-badge&logo=thymeleaf)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple?style=for-the-badge&logo=bootstrap)
-![GitHub](https://img.shields.io/badge/Repo-Hazielcode--NOMERCY--SYSTEM-black?style=for-the-badge&logo=github)
-
-</div>
+<p align="center">
+  <b>Sistema de gestión hospitalaria moderno y escalable.</b><br>
+  Desarrollado con <code>Spring Boot 3.5</code>, <code>Thymeleaf</code>, <code>Bootstrap</code> y <code>MongoDB</code> 💾.
+</p>
 
 ---
 
-## ⚙️ **Resumen del Proyecto**
+## 🧠 Descripción general
 
-**NoMercy System** (HospitalSystem) es una plataforma web diseñada para centralizar la gestión clínica del hospital.  
-Incluye CRUDs completos, validaciones, relaciones entre entidades y vistas integradas con JavaScript dinámico.
+HospitalSystem es una aplicación web diseñada para la **gestión integral de un hospital**, permitiendo administrar de forma sencilla:
 
-📦 **Arquitectura general:**
-- Backend REST con **Spring Boot**
-- Frontend dinámico con **Thymeleaf + Bootstrap**
-- Persistencia con **Spring Data JPA / Hibernate**
-- Base de datos **MySQL 8**
-- Integración modular por capas
+- 👨‍⚕️ Médicos  
+- 🧑‍🤝‍🧑 Pacientes  
+- 🧾 Citas médicas  
+- 🧬 Especialidades  
 
----
-
-## 🧩 **Módulos Principales**
-
-### 🧍 **Pacientes**
-- CRUD completo: crear, listar, editar y eliminar.
-- Datos: nombre, apellido, DNI, teléfono, correo, dirección.
-
-### 🩺 **Médicos**
-- Registro de médicos con número CMP y especialidad asignada.
-
-### 🧠 **Especialidades**
-- Gestión de especialidades médicas (Cardiología, Pediatría, etc.).
-- Relación **1:N** con Médicos.
-
-### 📅 **Citas Médicas**
-- Registro de citas entre pacientes y médicos.
-- Estado visual:
-  - 🩵 **PROGRAMADA** → Azul  
-  - 💚 **ATENDIDA** → Verde  
-  - ❤️ **CANCELADA** → Rojo
+El sistema utiliza **MongoDB** como base de datos NoSQL, ofreciendo una estructura flexible, eficiente y completamente libre de esquemas SQL.
 
 ---
 
-## 🧠 **Relaciones entre Entidades**
+## ⚙️ Tecnologías principales
 
-| Entidad | Relación | Descripción |
-|----------|-----------|-------------|
-| `Paciente` ↔ `Cita` | 1:N | Un paciente puede tener varias citas |
-| `Medico` ↔ `Cita` | 1:N | Un médico puede atender muchas citas |
-| `Medico` ↔ `Especialidad` | N:1 | Cada médico pertenece a una especialidad |
-| `Cita` → `EstadoCita` | Enum | PROGRAMADA • ATENDIDA • CANCELADA |
-
----
-
-## 🧭 **Tecnologías Utilizadas**
-
-| Capa | Tecnología |
-|------|-------------|
-| 💻 Backend | Java 17 • Spring Boot 3.5 • Spring Data JPA |
-| 🎨 Frontend | Thymeleaf • Bootstrap 5 • Animate.css • JS Fetch API |
-| 🧠 Base de Datos | MySQL 8 (puerto `3307`) |
-| ⚙️ Build Tool | Gradle |
-| 🧩 IDE Recomendado | IntelliJ IDEA Ultimate |
-| 🌍 Control de Versiones | Git + GitHub (`NOMERCY-SYSTEM`) |
+| Categoría | Tecnología |
+|------------|-------------|
+| Backend | ☕ Java 17, Spring Boot 3.5 |
+| Base de datos | 🍃 MongoDB (Compass / Atlas) |
+| Frontend | 🌐 Thymeleaf + Bootstrap + JS |
+| Build Tool | 🧱 Gradle |
+| IDE | 🧩 IntelliJ IDEA Ultimate |
+| Pruebas | 🔍 Postman |
 
 ---
 
-## 🧱 **Estructura del Proyecto**
+## 🧩 Arquitectura del sistema
 
-```bash
 HospitalSystem/
-│
-├── src/
-│   └── main/
-│       ├── java/com/tecsup/hospital/
-│       │   ├── controller/
-│       │   │   ├── PacienteController.java
-│       │   │   ├── MedicoController.java
-│       │   │   ├── EspecialidadController.java
-│       │   │   ├── CitaController.java
-│       │   │   └── ViewController.java
-│       │   │
-│       │   ├── model/
-│       │   │   ├── Paciente.java
-│       │   │   ├── Medico.java
-│       │   │   ├── Especialidad.java
-│       │   │   ├── Cita.java
-│       │   │   └── EstadoCita.java
-│       │   │
-│       │   ├── repository/
-│       │   ├── service/
-│       │   └── HospitalSystemApplication.java
-│       │
-│       └── resources/
-│           ├── static/
-│           │   └── js/
-│           │       ├── pacientes.js
-│           │       ├── medicos.js
-│           │       ├── especialidades.js
-│           │       └── citas.js
-│           │
-│           ├── templates/
-│           │   ├── index.html
-│           │   ├── pacientes.html
-│           │   ├── medicos.html
-│           │   ├── especialidades.html
-│           │   └── citas.html
-│           │
-│           └── application.properties
-│
-├── build.gradle
-└── README.md
+├── controller/ # Controladores REST y vistas Thymeleaf
+├── model/ # Documentos MongoDB (Pacientes, Médicos, etc.)
+├── repository/ # Repositorios MongoRepository
+├── service/ # Lógica de negocio CRUD
+├── resources/
+│ ├── templates/ # Páginas Thymeleaf
+│ ├── static/ # Archivos JS y CSS
+│ └── application.properties
+└── HospitalSystemApplication.java
 
+yaml
+Copiar código
 
+---
 
-🧾 Configuración de la Base de Datos
+## 🛠️ Instalación y ejecución
 
-spring.datasource.url=jdbc:mysql://localhost:3307/hospitaldb
-spring.datasource.username=root
-spring.datasource.password=
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-server.port=8080
-
-📌 Antes de ejecutar el proyecto:
-
-CREATE DATABASE hospital_db;
-💻 Guía para Clonar y Ejecutar
-🪄 1️⃣ Clonar el Repositorio
+### 🔹 1. Clonar el repositorio
+```bash
 git clone https://github.com/Hazielcode/NOMERCY-SYSTEM.git
+cd NOMERCY-SYSTEM
+🔹 2. Verificar MongoDB
+Abre tu terminal y ejecuta:
 
-🧩 2️⃣ Abrir el Proyecto
+bash
+Copiar código
+mongosh
+use hospitaldb
+Si usas MongoDB Compass, conéctate con:
 
-En IntelliJ IDEA o VS Code:
+arduino
+Copiar código
+mongodb://localhost:27017
+🔹 3. Configurar el archivo application.properties
+Ubicación: src/main/resources/application.properties
 
-File > Open > HospitalSystem
+properties
+Copiar código
+spring.application.name=HospitalSystem
+spring.data.mongodb.uri=mongodb://localhost:27017/hospitaldb
+spring.data.mongodb.database=hospitaldb
+server.port=8080
+🔹 4. Ejecutar el proyecto
+bash
+Copiar código
+gradlew bootRun
+Luego abre tu navegador:
 
-🛠️ 3️⃣ Crear la Base de Datos
-CREATE DATABASE hospitaldb;
-
-⚙️ 4️⃣ Configurar Credenciales
-
-Edita application.properties si tu MySQL tiene otro puerto o usuario.
-
-▶️ 5️⃣ Ejecutar el Proyecto
-./gradlew bootRun
-
-
-o desde IntelliJ → botón Run ▶
-
-🌐 6️⃣ Acceder en el Navegador
+arduino
+Copiar código
 http://localhost:8080/
+🌐 Rutas disponibles (Frontend)
+Página	URL
+🏠 Inicio	/
+🧑‍🤝‍🧑 Pacientes	/view/pacientes
+👨‍⚕️ Médicos	/view/medicos
+🧬 Especialidades	/view/especialidades
+📅 Citas	/view/citas
 
-🎨 Diseño e Interfaz
+💻 Endpoints REST API
+Método	Endpoint	Descripción
+GET	/api/pacientes	Listar todos los pacientes
+POST	/api/pacientes	Crear nuevo paciente
+GET	/api/medicos	Listar todos los médicos
+GET	/api/especialidades	Listar especialidades
+GET	/api/citas	Listar citas
+POST	/api/citas	Crear nueva cita
+PUT	/api/.../{id}	Actualizar registro
+DELETE	/api/.../{id}	Eliminar registro
 
-✨ Interfaz moderna y responsiva:
+🧠 Todas las colecciones se crean automáticamente en MongoDB al ejecutar la app.
 
-Formularios elegantes y minimalistas
+🍃 Colecciones MongoDB generadas
+pacientes
 
-Tablas interactivas con iconos (Bootstrap Icons)
+medicos
 
-Badges de colores según el estado de la cita
+especialidades
 
-Navbar uniforme en todos los módulos
+citas
 
-🩵 PROGRAMADA (azul) 💚 ATENDIDA (verde) ❤️ CANCELADA (rojo)
+📸 Ejemplo en MongoDB Compass:
 
-🧾 Endpoints REST
-Módulo	Método	Endpoint	Descripción
-Paciente	GET	/api/pacientes	Listar pacientes
-Paciente	POST	/api/pacientes	Crear paciente
-Médico	GET	/api/medicos	Listar médicos
-Especialidad	GET	/api/especialidades	Listar especialidades
-Cita	GET	/api/citas	Listar citas
-Cita	POST	/api/citas	Crear cita
-Cita	DELETE	/api/citas/{id}	Eliminar cita
-<div align="center">
-👨‍💻 Autor del Proyecto
-Rol	Nombre
-👨‍💻 Backend & Frontend Integration	Samir Haziel Alfonso Solórzano
-🎓 Proyecto Académico	TECSUP — Desarrollo de Aplicaciones Empresariales
-🗓️ Año	2025
-🧾 Licencia
+<p align="center"> <img src="https://i.imgur.com/2xLwbA1.png" width="700" alt="MongoDB Compass"/> </p>
+🔬 Ejemplo de datos JSON
+👉 Crear paciente
+json
+Copiar código
+{
+  "nombre": "Carlos",
+  "apellido": "Ramirez",
+  "dni": "98765432",
+  "telefono": "945123678",
+  "correo": "carlos.ramirez@example.com",
+  "direccion": "Av. Los Robles 456"
+}
+👉 Crear cita
+json
+Copiar código
+{
+  "fecha": "2025-10-25",
+  "hora": "09:30:00",
+  "motivo": "Chequeo general",
+  "paciente": { "id": "6714d9fbb23d91a3b2c3d0e1" },
+  "medico": { "id": "6714da12b23d91a3b2c3d0e2" }
+}
+💡 Pruebas recomendadas
+Herramienta	Acción
+🧭 MongoDB Compass	Visualiza colecciones y documentos creados automáticamente
+🔥 Postman	Prueba los endpoints CRUD
+🌐 Navegador	Usa las vistas Thymeleaf /view/...
 
-Proyecto académico desarrollado con fines educativos.
-© 2025 Samir Haziel Alfonso Solórzano — Todos los derechos reservados.
+📈 Resultados de la migración a MongoDB
+✅ Se reemplazó completamente JPA/MySQL por MongoDB
+✅ Se mantuvo la estructura MVC original
+✅ CRUDs 100 % funcionales con colecciones dinámicas
+✅ Rendimiento optimizado y configuración simplificada
+✅ Verificación exitosa con Postman y Compass
+
+🧾 Conclusiones
+Logré migrar con éxito el sistema completo a MongoDB manteniendo la estructura y estabilidad.
+
+MongoDB simplificó la persistencia de datos al no requerir esquemas fijos ni SQL.
+
+La aplicación ahora es más ligera, eficiente y escalable.
+
+Pude comprobar la flexibilidad de Spring Boot al integrarse con diferentes motores de base de datos.
+
+Todas las pruebas en Postman y MongoDB Compass confirmaron un funcionamiento estable y correcto.
+
+👨‍💻 Autor
+Samir Haziel Alfonso Solorzano
+🎓 Desarrollador Backend – Java | Spring Boot
+📧 hazielcode.dev@gmail.com
+🌐 GitHub – Hazielcode
+
+<p align="center"> <img src="https://i.imgur.com/3Yh7eXb.png" width="120" alt="Spring Boot Logo"/> </p>
+<p align="center"> ⭐ <b>Si este proyecto te resultó útil, no olvides dejar una estrella en el repositorio.</b> ⭐ </p> ```
 
 🌐 Repositorio Oficial – NOMERCY SYSTEM
 </div> ```
