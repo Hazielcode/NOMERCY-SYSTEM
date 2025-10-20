@@ -16,33 +16,33 @@ public class CitaController {
         this.service = service;
     }
 
-    // Listar todas las citas
+    // 🔹 Listar todas las citas
     @GetMapping
     public List<Cita> listar() {
         return service.listar();
     }
 
-    // Crear una nueva cita
+    // 🔹 Crear una nueva cita
     @PostMapping
     public Cita crear(@RequestBody Cita c) {
         return service.crear(c);
     }
 
-    // Buscar cita por ID
+    // 🔹 Buscar cita por ID (ahora String)
     @GetMapping("/{id}")
-    public Cita buscar(@PathVariable Long id) {
+    public Cita buscar(@PathVariable String id) {
         return service.buscar(id);
     }
 
-    // Actualizar cita existente
+    // 🔹 Actualizar cita existente (ID tipo String)
     @PutMapping("/{id}")
-    public Cita actualizar(@PathVariable Long id, @RequestBody Cita c) {
+    public Cita actualizar(@PathVariable String id, @RequestBody Cita c) {
         return service.actualizar(id, c);
     }
 
-    // Eliminar cita
+    // 🔹 Eliminar cita (ID tipo String)
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
+    public void eliminar(@PathVariable String id) {
         service.eliminar(id);
     }
 }

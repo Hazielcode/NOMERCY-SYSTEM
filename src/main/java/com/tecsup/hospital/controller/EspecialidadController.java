@@ -16,33 +16,33 @@ public class EspecialidadController {
         this.service = service;
     }
 
-    // Listar todas las especialidades
+    // 🔹 Listar todas las especialidades
     @GetMapping
     public List<Especialidad> listar() {
         return service.listar();
     }
 
-    // Crear una nueva especialidad
+    // 🔹 Crear una nueva especialidad
     @PostMapping
     public Especialidad crear(@RequestBody Especialidad e) {
         return service.crear(e);
     }
 
-    // Buscar especialidad por ID
+    // 🔹 Buscar especialidad por ID (String en MongoDB)
     @GetMapping("/{id}")
-    public Especialidad buscar(@PathVariable Long id) {
+    public Especialidad buscar(@PathVariable String id) {
         return service.buscar(id);
     }
 
-    // Actualizar especialidad existente
+    // 🔹 Actualizar especialidad existente
     @PutMapping("/{id}")
-    public Especialidad actualizar(@PathVariable Long id, @RequestBody Especialidad e) {
+    public Especialidad actualizar(@PathVariable String id, @RequestBody Especialidad e) {
         return service.actualizar(id, e);
     }
 
-    // Eliminar especialidad
+    // 🔹 Eliminar especialidad
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
+    public void eliminar(@PathVariable String id) {
         service.eliminar(id);
     }
 }
