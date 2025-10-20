@@ -14,24 +14,29 @@ public class MedicoService {
         this.repo = repo;
     }
 
+    // 🔹 Listar todos los médicos
     public List<Medico> listar() {
         return repo.findAll();
     }
 
+    // 🔹 Crear un nuevo médico
     public Medico crear(Medico m) {
         return repo.save(m);
     }
 
-    public Medico buscar(Long id) {
+    // 🔹 Buscar médico por ID (MongoDB usa String)
+    public Medico buscar(String id) {
         return repo.findById(id).orElse(null);
     }
 
-    public Medico actualizar(Long id, Medico m) {
+    // 🔹 Actualizar médico existente
+    public Medico actualizar(String id, Medico m) {
         m.setId(id);
         return repo.save(m);
     }
 
-    public void eliminar(Long id) {
+    // 🔹 Eliminar médico
+    public void eliminar(String id) {
         repo.deleteById(id);
     }
 }

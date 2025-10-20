@@ -14,29 +14,29 @@ public class CitaService {
         this.repo = repo;
     }
 
-    // Listar todas las citas
+    // 🔹 Listar todas las citas
     public List<Cita> listar() {
         return repo.findAll();
     }
 
-    // Crear una nueva cita
+    // 🔹 Crear una nueva cita
     public Cita crear(Cita c) {
         return repo.save(c);
     }
 
-    // Buscar una cita por ID
-    public Cita buscar(Long id) {
+    // 🔹 Buscar una cita por ID (Mongo usa String)
+    public Cita buscar(String id) {
         return repo.findById(id).orElse(null);
     }
 
-    // Actualizar una cita existente
-    public Cita actualizar(Long id, Cita c) {
+    // 🔹 Actualizar una cita existente
+    public Cita actualizar(String id, Cita c) {
         c.setId(id);
         return repo.save(c);
     }
 
-    // Eliminar cita
-    public void eliminar(Long id) {
+    // 🔹 Eliminar cita por ID
+    public void eliminar(String id) {
         repo.deleteById(id);
     }
 }
