@@ -25,20 +25,19 @@ repositories {
 }
 
 dependencies {
-    // --- Core Spring Boot ---
+    // --- Núcleo de Spring Boot ---
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-    // --- Thymeleaf para vistas HTML ---
+    // --- MongoDB (reemplaza JPA + MySQL) ---
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+    // --- Thymeleaf (para vistas HTML) ---
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-    // --- Base de datos MySQL ---
-    runtimeOnly 'com.mysql:mysql-connector-j'
-
-    // --- Desarrollo ---
+    // --- Desarrollo en caliente ---
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    // --- Lombok (para getters/setters automáticos) ---
+    // --- Lombok ---
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
