@@ -1,26 +1,26 @@
 package com.tecsup.hospital.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 import java.util.List;
 
-@Entity
-@Table(name = "especialidad")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Document(collection = "especialidades")
 public class Especialidad {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String nombre;
     private String descripcion;
 
-    @OneToMany(mappedBy = "especialidad", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("especialidad")  // 👈 rompe el bucle inverso
+    // 🔹 Referencia inversa a médicos (opcional)
+    @DBRef(lazy = true)
     private List<Medico> medicos;
 }

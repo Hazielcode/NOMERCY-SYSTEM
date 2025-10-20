@@ -1,37 +1,32 @@
 package com.tecsup.hospital.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Entity
-@Table(name = "cita")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Document(collection = "citas")
 public class Cita {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private LocalDate fecha;
     private LocalTime hora;
     private String motivo;
-
-    @Enumerated(EnumType.STRING)
     private EstadoCita estado = EstadoCita.PROGRAMADA;
 
-    @ManyToOne
-    @JoinColumn(name = "paciente_id")
-    @JsonIgnoreProperties({"citas"}) // 👈 evita recursión infinita con paciente
+    // 🔹 Referencias a otros documentos (relaciones ligeras)
+    @DBRef
     private Paciente paciente;
 
-    @ManyToOne
-    @JoinColumn(name = "medico_id")
-    @JsonIgnoreProperties({"citas", "especialidad"}) // 👈 evita bucles con médico y especialidad
+    @DBRef
     private Medico medico;
 }

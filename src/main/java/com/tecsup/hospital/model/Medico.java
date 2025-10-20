@@ -1,20 +1,19 @@
 package com.tecsup.hospital.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
-@Entity
-@Table(name = "medico")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Document(collection = "medicos")
 public class Medico {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String nombre;
     private String apellido;
@@ -23,8 +22,7 @@ public class Medico {
     private String telefono;
     private String correo;
 
-    @ManyToOne
-    @JoinColumn(name = "especialidad_id")
-    @JsonIgnoreProperties("medicos")   // 👈 rompe la recursión infinita
+    // 🔹 Referencia a la especialidad (relación simple)
+    @DBRef
     private Especialidad especialidad;
 }
