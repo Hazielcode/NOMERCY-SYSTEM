@@ -25,23 +25,20 @@ repositories {
 }
 
 dependencies {
-    // --- Núcleo de Spring Boot ---
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    // --- MongoDB (reemplaza JPA + MySQL) ---
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-
-    // --- Thymeleaf (para vistas HTML) ---
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 
-    // --- Desarrollo en caliente ---
+    // Reportes
+    implementation 'com.lowagie:itext:2.1.7'
+    implementation 'org.apache.poi:poi-ooxml:5.2.3'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    // --- Lombok ---
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    // --- Testing ---
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

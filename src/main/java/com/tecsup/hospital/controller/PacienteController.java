@@ -1,9 +1,15 @@
 package com.tecsup.hospital.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
 import com.tecsup.hospital.model.Paciente;
 import com.tecsup.hospital.service.PacienteService;
+import com.tecsup.hospital.report.PacienteExcelView;
+import com.tecsup.hospital.report.PacientePdfView;
+
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/pacientes")
@@ -28,7 +34,7 @@ public class PacienteController {
         return service.crear(p);
     }
 
-    // 🔹 Buscar paciente por ID (MongoDB usa String)
+    // 🔹 Buscar paciente por ID
     @GetMapping("/{id}")
     public Paciente buscar(@PathVariable String id) {
         return service.buscar(id);
@@ -40,9 +46,24 @@ public class PacienteController {
         return service.actualizar(id, p);
     }
 
-    // 🔹 Eliminar paciente por ID
+    // 🔹 Eliminar paciente
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable String id) {
         service.eliminar(id);
     }
+
+    // 📊 Exportar reporte en Excel
+    @GetMapping("/reporte/excel")
+    public void generarExcel(HttpServletResponse response) throws IOException {
+        List<Paciente> pacientes = service.listar();
+        new PacienteExcelView().export(pacientes, response);
+    }
+
+    // 📄 Exportar reporte en PDF
+    @GetMapping("/reporte/pdf")
+    public void generarPdf(HttpServletResponse response) throws IOException, com.lowagie.text.DocumentException {
+        List<Paciente> pacientes = service.listar();
+        new PacientePdfView().export(pacientes, response);
+    }
+
 }
